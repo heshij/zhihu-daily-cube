@@ -1,10 +1,11 @@
 <template>
   <div class="helloWorld">
-    <cube-button type="submit">{{tex}}</cube-button>
+    <cube-button type="submit" class="icon-back">{{tex}}</cube-button>
   </div>
 </template>
 
 <script>
+  import { getSlider } from '../api'
   export default {
     name: 'HelloWorld',
     props: {
@@ -13,6 +14,16 @@
     data () {
       return {
         tex: 'helloWorld'
+      }
+    },
+    created () {
+      this._getSlider()
+    },
+    methods: {
+      _getSlider () {
+        getSlider().then((res) => {
+          console.log(res.data)
+        })
       }
     }
   }
