@@ -1,27 +1,17 @@
 <template>
   <div id="app">
-    <hello-world></hello-world>
+    <m-header></m-header>
+    <sidebar></sidebar>
   </div>
 </template>
 <style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
 
-#nav
-  padding 30px
-  a
-    font-weight bold
-    color #2c3e50
-    &.router-link-exact-active
-      color #42b983
 </style>
 <script>
-  import HelloWorld from './components/HelloWorld'
+  import MHeader from './components/m-header/m-header.vue'
+  import Sidebar from './components/sidebar/sidebar'
+
   export default {
-    components: { HelloWorld }
+    components: { Sidebar, MHeader }
   }
 </script>

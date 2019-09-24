@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import { getSlider } from '../api'
+  import api from '../api'
   export default {
     name: 'HelloWorld',
     props: {
@@ -21,7 +21,7 @@
     },
     methods: {
       _getSlider () {
-        getSlider().then((res) => {
+        api.getSlider().then((res) => {
           console.log(res.data)
         })
       }
