@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <div class="slide-container-v">
+    <div v-if="sliders.length" class="slide-container">
       <cube-slide ref="slide" :data="sliders">
         <cube-slide-item v-for="(item, index) in sliders" :key="index" @click.native="clickHandler(item, index)">
           <a :href="item.url">
@@ -11,41 +11,69 @@
         </cube-slide-item>
       </cube-slide>
     </div>
+    <div class="newList">
+      <div class="model">
+        <ul>
+          <li class="new border-1px" v-for="story in stories" :key="story.id" @click="goNews(story)">
+            <span class="title">{{story.title}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import api from '../../api/index'
-  import { changeImageUrl } from '../../common/js/util'
+  import {changeImageUrl} from '../../common/js/util'
 
   export default {
     name: 'home',
-    data () {
+    data() {
       return {
-        sliders: []
+        sliders: [],
+        stories:[]
       }
     },
-    created () {
+    created() {
+      this._getNews()
+    },
+    mounted() {
       setTimeout(() => {
         this._getSlider()
       }, 20)
     },
-    mounted () {
-    },
     methods: {
-      _getSlider () {
+      _getSlider() {
         api.getSlider().then((res) => {
           // console.log(res.data.top_stories)
           this.sliders = this.initImage(res.data.top_stories)
           console.log(this.sliders)
+        }).catch((error) => {
+          console.log(error)
         })
       },
-      initImage (data) {
+      _getNews() {
+        api.getNews().then((res) => {
+          this.stories = res.data.stories
+          console.log(this.stories)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      initImage(data) {
         data.map((item) => {
           item.image = changeImageUrl(item.image)
         })
         return data
+      },
+      goNews(story) {
+        this.$router.push({
+          name: `/news-detail/${story.id}`
+        })
       }
+    },
+    computed: {
     }
   }
 </script>
@@ -54,16 +82,20 @@
   @import "~@/common/stylus/variable.styl"
   .home
     padding-top 40px
-  .slide-container-v
+
+  .slide-container
     height 260px
     transform translateZ(0px)
     overflow hidden
+
     img
       width 100%;
-      height: auto!important;
+      height: auto !important;
       margin-top -16%
+
     .cube-slide-item
       position relative
+
       span
         display block
         padding: 30px 16px;
@@ -76,6 +108,7 @@
         font-size $font-size-large
         overflow hidden
         white-space normal
+
       b
         position absolute
         top 0
@@ -85,14 +118,17 @@
         z-index 30
         background $color-background-back-s
         opacity .6
+
     .cube-slide-dots
       bottom 8px
+
       & span
         width 8px
         height 8px
         border-radius 50%
         margin 0 2px
         background-color: #8c8e8b
+
         &.active
           background-color: $color-white
 </style>
