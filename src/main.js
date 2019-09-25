@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import './cube-ui'
 import App from './App.vue'
-import router from './router'
+import router from './router/index'
 import store from './store'
 // import axios from 'axios'
 // import VueAxios from 'vue-axios'

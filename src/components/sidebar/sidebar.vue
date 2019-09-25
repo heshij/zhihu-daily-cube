@@ -17,7 +17,7 @@
               </li>
               <li>
                 <span class="icon-download"></span>
-                <span>离线下载</span>
+                <b>离线下载</b>
               </li>
             </ul>
           </div>
@@ -43,7 +43,7 @@
     name: 'sidebar',
     data () {
       return {
-        showSidebar: true
+        showSidebar: false
       }
     },
     methods: {
@@ -99,12 +99,39 @@
           font-size $font-size-large
           line-height 40px
       .ctrl
-        padding 20px 16px
+        padding 12px 16px
         ul
           display flex
           justify-content space-between
           font-size $font-size-medium-x
           color $color-white
-          a
-            color $color-white
+          li
+            padding: 12px 0;
+            a
+              color $color-white
+            span
+              margin-right 16px
+    .list
+      background-color $color-theme-d
+      li
+        font-size $font-size-large
+        color $color-theme
+        padding 16px
+        a
+          color $color-theme
+          margin-left 18px
+          font-size $font-size-medium-x
+  .mask
+    position fixed
+    top 0
+    left 0
+    width 100%
+    height 100%
+    z-index 30
+    background $color-background-back-s
+    opacity 1
+    &.fade-enter-active, &.fade-leave-active
+      transitio all .5s
+    &.fade-enter, &.fade-leave-active
+      opacity 0
 </style>

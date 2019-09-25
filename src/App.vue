@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <m-header></m-header>
-    <sidebar></sidebar>
+    <m-header @showSidebar="show"></m-header>
+    <sidebar ref="sidebar"></sidebar>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div>
 </template>
 <style lang="stylus">
@@ -12,6 +15,11 @@
   import Sidebar from './components/sidebar/sidebar'
 
   export default {
+    methods: {
+      show () {
+        this.$refs.sidebar.open()
+      }
+    },
     components: { Sidebar, MHeader }
   }
 </script>

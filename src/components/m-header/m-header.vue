@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header-left">
-      <span class="icon-menu"></span>
+      <span class="icon-menu" @click="showSidebar"></span>
       <h2>{{title}}</h2>
     </div>
     <div class="header-right">
