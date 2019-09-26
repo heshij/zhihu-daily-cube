@@ -11,40 +11,32 @@
         </cube-slide-item>
       </cube-slide>
     </div>
-    <div class="newList">
-      <div class="model">
-        <ul>
-          <li class="new border-1px" v-for="story in stories" :key="story.id" @click="goNews(story)">
-            <span class="title">{{story.title}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <news-list></news-list>
   </div>
 </template>
 
 <script>
   import api from '../../api/index'
-  import {changeImageUrl} from '../../common/js/util'
+  import { changeImageUrl } from '../../common/js/util'
+  import NewsList from '../../base/news-list/new-list'
 
   export default {
     name: 'home',
-    data() {
+    components: { NewsList },
+    data () {
       return {
-        sliders: [],
-        stories:[]
+        sliders: []
       }
     },
-    created() {
-      this._getNews()
+    created () {
     },
-    mounted() {
+    mounted () {
       setTimeout(() => {
         this._getSlider()
       }, 20)
     },
     methods: {
-      _getSlider() {
+      _getSlider () {
         api.getSlider().then((res) => {
           // console.log(res.data.top_stories)
           this.sliders = this.initImage(res.data.top_stories)
@@ -53,28 +45,19 @@
           console.log(error)
         })
       },
-      _getNews() {
-        api.getNews().then((res) => {
-          this.stories = res.data.stories
-          console.log(this.stories)
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
-      initImage(data) {
+      initImage (data) {
         data.map((item) => {
           item.image = changeImageUrl(item.image)
         })
         return data
       },
-      goNews(story) {
+      goNews (story) {
         this.$router.push({
-          name: `/news-detail/${story.id}`
+          path: `/news-detail/${story.id}`
         })
       }
     },
-    computed: {
-    }
+    computed: {}
   }
 </script>
 

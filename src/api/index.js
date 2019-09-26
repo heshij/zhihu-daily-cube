@@ -32,5 +32,10 @@ export default {
     return axios('api/news/' + id).then(res => {
       return Promise.resolve(res)
     })
+  },
+  getMoreNews (homeDateStr) {
+    return axios('api/news/before/' + homeDateStr).then(res => {
+      return Promise.resolve(res)
+    })
   }
 }

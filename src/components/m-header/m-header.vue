@@ -17,7 +17,7 @@
     props: {
       title: {
         type: String,
-        default: '今日热闻'
+        default: '首页'
       }
     },
     methods: {

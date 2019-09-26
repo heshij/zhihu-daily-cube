@@ -4,7 +4,7 @@
       <img src="" alt="">
       <span class="news_title">{{title}}</span>
     </div>
-    <div class="news-main"></div>
+    <div class="news-main">这是详情</div>
   </div>
 </template>
 
@@ -12,28 +12,28 @@
   import api from '../../api/index'
 
   export default {
-    name: "news-detail",
-    data() {
+    name: 'news-detail',
+    data () {
       return {
-        newsDetail:{},
-        title:''
+        newsDetail: {},
+        title: ''
       }
     },
-    created(){
+    created () {
       this._getNewsContent()
     },
     method: {
-      _getNewsContent(){
+      _getNewsContent () {
         api.getNewsContent(this.$route.params.id).then(res => {
-          console.log(res.data);
+          console.log(res.data)
         })
       }
     },
     watch: {
-      '$route'(to, from) {
+      '$route' (to, from) {
         this._getNewsContent()
       }
-    },
+    }
   }
 </script>
 

@@ -16,6 +16,7 @@ export default new Router({
     },
     {
       path: '/news-detail:id',
+      name: 'news-detail',
       component: NewsDetail
     }
   ]
