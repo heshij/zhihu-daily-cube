@@ -12,7 +12,6 @@
   import api from '../../api/index'
 
   export default {
-    name: 'news-detail',
     data () {
       return {
         newsDetail: {},
@@ -21,8 +20,9 @@
     },
     created () {
       this._getNewsContent()
+      console.log(this.$route.params.id)
     },
-    method: {
+    methods: {
       _getNewsContent () {
         api.getNewsContent(this.$route.params.id).then(res => {
           console.log(res.data)
@@ -31,12 +31,15 @@
     },
     watch: {
       '$route' (to, from) {
-        this._getNewsContent()
+        console.log('____________')
+        console.log(to)
+        console.log(from)
+        console.log('____________')
+        // this._getNewsContent()
       }
     }
   }
 </script>
 
 <style scoped>
-
 </style>

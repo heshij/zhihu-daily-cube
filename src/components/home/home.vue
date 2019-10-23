@@ -40,7 +40,7 @@
         api.getSlider().then((res) => {
           // console.log(res.data.top_stories)
           this.sliders = this.initImage(res.data.top_stories)
-          console.log(this.sliders)
+          // console.log(this.sliders)
         }).catch((error) => {
           console.log(error)
         })
@@ -50,11 +50,6 @@
           item.image = changeImageUrl(item.image)
         })
         return data
-      },
-      goNews (story) {
-        this.$router.push({
-          path: `/news-detail/${story.id}`
-        })
       }
     },
     computed: {}
