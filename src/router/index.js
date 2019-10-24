@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '.././components/home/home'
-import NewsDetail from '.././components/news-detail/NewsDetail'
+import NewsDetail from '.././components/news-detail/news-detail'
 
 Vue.use(Router)
 
@@ -16,8 +16,8 @@ export default new Router({
       component: Home
     },
     {
-      path: '/NewsDetail/:id',
-      name: 'NewsDetail',
+      path: '/news-detail/:id',
+      name: 'news-detail',
       component: NewsDetail
     }
   ]

@@ -1,17 +1,21 @@
 <template>
   <div class="home">
-    <div v-if="sliders.length" class="slide-container">
-      <cube-slide ref="slide" :data="sliders">
-        <cube-slide-item v-for="(item, index) in sliders" :key="index" @click.native="clickHandler(item, index)">
-          <a :href="item.url">
-            <img :src="item.image">
-            <b class="mark"></b>
-            <span>{{item.title}}</span>
-          </a>
-        </cube-slide-item>
-      </cube-slide>
+    <div class="scroll-wrapper">
+      <cube-scroll ref="scroll">
+        <div v-if="sliders.length" class="slide-container">
+          <cube-slide ref="slide" :data="sliders">
+            <cube-slide-item v-for="(item, index) in sliders" :key="index" @click.native="clickHandler(item, index)">
+              <a :href="item.url">
+                <img :src="item.image">
+                <b class="mark"></b>
+                <span>{{item.title}}</span>
+              </a>
+            </cube-slide-item>
+          </cube-slide>
+        </div>
+        <news-list ref="newsList"></news-list>
+      </cube-scroll>
     </div>
-    <news-list></news-list>
   </div>
 </template>
 
@@ -29,11 +33,12 @@
       }
     },
     created () {
-    },
-    mounted () {
       setTimeout(() => {
         this._getSlider()
       }, 20)
+      this.handleNewsList()
+    },
+    mounted () {
     },
     methods: {
       _getSlider () {
@@ -50,6 +55,11 @@
           item.image = changeImageUrl(item.image)
         })
         return data
+      },
+      handleNewsList() {
+        // const paddingBottom = this.sliders.length > 0 ? '76px' : ''
+        // this.$refs.newsList.style.paddingBottom = paddingBottom
+        // this.$refs.scroll.refresh()
       }
     },
     computed: {}
@@ -58,8 +68,16 @@
 
 <style lang="stylus">
   @import "~@/common/stylus/variable.styl"
+  html
+    background-color $color-theme-d
+
   .home
     padding-top 40px
+
+    .scroll-wrapper
+      height 700px
+      // fix 子元素超出边框圆角部分不隐藏的问题
+      transform: rotate(0deg);
 
   .slide-container
     height 260px
