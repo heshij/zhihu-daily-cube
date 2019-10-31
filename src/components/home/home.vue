@@ -97,7 +97,7 @@
         padding: 30px 16px;
         line-height: 30px
         position absolute
-        top 50%
+        bottom 0
         left 0
         z-index 40
         color $color-white

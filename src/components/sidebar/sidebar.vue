@@ -24,7 +24,7 @@
         </div>
         <div class="list">
           <ul>
-            <li>
+            <li @click="hide">
               <span class="icon-home"></span>
               <router-link to="/">首页</router-link>
             </li>

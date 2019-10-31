@@ -37,7 +37,7 @@
     left 0
     width 100%
     height 40px
-    z-index 10
+    z-index 99
     display flex
     justify-content space-between
     background-color $color-theme
