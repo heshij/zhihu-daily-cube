@@ -1,11 +1,11 @@
 <template>
-  <div class="list">
+  <div class="list" v-show="stories.length">
     <div class="date">{{newsDate}}</div>
     <ul>
-      <li class="new border-1px" v-for="story in stories" :key="story.id" @click="goNews(story)">
+      <li class="new border-1px" v-for="story in stories" :key="story.id" @click="selectItem(story)">
         <span class="title">{{story.title}}</span>
         <div class="img-wrap">
-          <img :src="attachImageUrl(story.images[0])" alt="" class="_img">
+          <img :src="story.images" alt="" class="_img">
         </div>
       </li>
     </ul>
@@ -13,42 +13,22 @@
 </template>
 
 <script>
-  import api from '../../api/index'
 
   export default {
     name: 'news-list',
     props: {
-    },
-    data () {
-      return {
-        newsDate: '今日热闻',
-        stories: [],
-        date: Date,
-        dateStr: ''
+      stories: {
+        type: Array,
+        default: []
+      },
+      newsDate: {
+        type: String,
+        default: '今日热闻'
       }
     },
-    created () {
-      this._getNews()
-    },
     methods: {
-      _getNews () {
-        api.getNews().then((res) => {
-          this.stories = res.data.stories
-          console.log(res.data)
-        }).catch((error) => {
-          console.log(error)
-        })
-      },
-      // 修改图片链接
-      attachImageUrl (srcUrl) {
-        if (srcUrl !== undefined) {
-          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
-        }
-      },
-      goNews (story) {
-        this.$router.push({
-          path: `/news-detail/${story.id}`
-        })
+      selectItem(item) {
+        this.$emit('select', item)
       }
     }
   }
@@ -60,12 +40,15 @@
     background-color $color-theme-d
     padding 0 12px
     /*padding-bottom: 76px*/
+
     .date
       font-size 14px
       color $color-title-s
       padding 16px 12px
+
     ul
       overflow: hidden
+
       li
         font-size $font-size-large
         color $color-title
@@ -78,6 +61,7 @@
         display flex
         justify-content space-between
         height 76px
+
         .title
           width 75%
           line-height 24px
@@ -85,9 +69,11 @@
           -webkit-box-orient vertical
           -webkit-line-clamp 3
           overflow hidden
+
         .img-wrap
           position relative
           width 25%
+
           ._img
             position: absolute;
             top: 0;
