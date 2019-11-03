@@ -5,7 +5,7 @@
       <li class="new border-1px" v-for="story in stories" :key="story.id" @click="goNews(story)">
         <span class="title">{{story.title}}</span>
         <div class="img-wrap">
-          <img :src="story.images" alt="" class="_img">
+          <img :src="attachImageUrl(story.images[0])" alt="" class="_img">
         </div>
       </li>
     </ul>
@@ -38,6 +38,12 @@
         }).catch((error) => {
           console.log(error)
         })
+      },
+      // 修改图片链接
+      attachImageUrl (srcUrl) {
+        if (srcUrl !== undefined) {
+          return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
+        }
       },
       goNews (story) {
         this.$router.push({

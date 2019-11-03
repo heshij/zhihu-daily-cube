@@ -1,3 +1,7 @@
+export const id = state => state.id
+
 export const stories = state => state.stories
 
-export const homeDateStr = state => state.homeDateStr
+export const homepageDate = state => state.homepageDate
+
+export const homepageDateStr = state => state.homepageDateStr

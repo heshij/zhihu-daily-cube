@@ -47,7 +47,7 @@
         // console.log('____________________________________')
         // console.log(from)
         // console.log('____________')
-        this._getNewsContent()
+        // this._getNewsContent()
       }
     }
   }

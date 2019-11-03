@@ -14,6 +14,7 @@
           </cube-slide>
         </div>
         <news-list ref="newsList"></news-list>
+        <cube-button @click="_getMoreNews">more</cube-button>
       </cube-scroll>
     </div>
   </div>
@@ -23,22 +24,27 @@
   import api from '../../api/index'
   import { changeImageUrl } from '../../common/js/util'
   import NewsList from '../../base/news-list/new-list'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'home',
     components: { NewsList },
     data () {
       return {
-        sliders: []
+        sliders: [],
+        date: Date,
+        dateStr: ''
       }
     },
     created () {
-      setTimeout(() => {
-        this._getSlider()
-      }, 20)
+      this._getNews()
+      this.initDate()
       this.handleNewsList()
     },
     mounted () {
+      setTimeout(() => {
+        this._getSlider()
+      }, 20)
     },
     methods: {
       _getSlider () {
@@ -56,13 +62,76 @@
         })
         return data
       },
-      handleNewsList() {
+      _getNews () {
+        api.getNews().then((response) => {
+          let stories = response.data.stories
+          let ids = stories.map(story => story.id)
+          this.addNews({
+            stories: stories,
+            ids: ids
+          })
+          console.log(this.stories)
+        }).catch((error) => {
+          console.log(error)
+        })
+      },
+      _getMoreNews () {
+        console.log(this.homepageDateStr)
+        api.getMoreNews(this.homepageDateStr).then(response => {
+          let stories = response.data.stories
+          console.log(stories)
+          let ids = stories.map(story => story.id)
+          this.addNews({
+            stories: stories,
+            ids: ids
+          })
+        }).catch((error) => {
+          console.log(error)
+        })
+
+        this.decreaseDateStr()
+      },
+      decreaseDateStr () {
+        let homeDate = this.homepageDate
+        // console.log(homeDate)
+        homeDate.setDate(homeDate.getDate() - 1)
+        this.addDate(new Date(homeDate.getTime()))
+        this.formatDate()
+      },
+      formatDate () {
+        let nowDate = new Date(this.homepageDate.getTime())
+        let year = nowDate.getFullYear() + ''
+        let month = nowDate.getMonth() + 1
+        let date = nowDate.getDate()
+        month = month < 10 ? '0' + month : month + ''// 格式化月份，小于10前置0
+        date = date < 10 ? '0' + date : date + ''// 格式化日期，小于10前置0;
+        this.dateStr = year + month + date
+        this.addDateStr(this.dateStr)
+      },
+      initDate () {
+        this.date = new Date()
+        this.addDate(new Date(this.date.getTime()))
+        console.log(new Date(this.date.getTime()))
+        this.formatDate()
+      },
+      handleNewsList () {
         // const paddingBottom = this.sliders.length > 0 ? '76px' : ''
         // this.$refs.newsList.style.paddingBottom = paddingBottom
         // this.$refs.scroll.refresh()
-      }
+      },
+      ...mapActions([
+        'addNews',
+        'addDate',
+        'addDateStr'
+      ])
     },
-    computed: {}
+    computed: {
+      ...mapGetters([
+        'stories',
+        'homepageDate',
+        'homepageDateStr'
+      ])
+    }
   }
 </script>
 
@@ -75,10 +144,9 @@
     padding-top 40px
 
     .scroll-wrapper
-      height 700px
+      height 620px
       // fix 子元素超出边框圆角部分不隐藏的问题
       transform: rotate(0deg);
-
   .slide-container
     height 260px
     transform translateZ(0px)
@@ -124,7 +192,6 @@
         border-radius 50%
         margin 0 2px
         background-color: #8c8e8b
-
         &.active
           background-color: $color-white
 </style>
