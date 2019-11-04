@@ -18,7 +18,7 @@
             </cube-slide-item>
           </cube-slide>
         </div>
-        <news-list ref="newsList" :stories="stories" @select="goNews"></news-list>
+        <news-list ref="newsList" :stories="stories" @select="goNews" :news-date="newsDate"></news-list>
       </cube-scroll>
     </div>
   </div>
@@ -26,36 +26,37 @@
 
 <script>
   import api from '../../api/index'
-  import {changeImageUrl} from '../../common/js/util'
+  import { changeImageUrl } from '../../common/js/util'
   import NewsList from '../../base/news-list/new-list'
-  import {mapGetters, mapActions} from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'home',
-    components: {NewsList},
-    data() {
+    components: { NewsList },
+    data () {
       return {
         sliders: [],
         date: Date,
         dateStr: '',
+        newsDate: '今日热闻',
         pullDownRefresh: true,
         pullDownRefreshThreshold: 60,
         pullDownRefreshTxt: 'Refresh success',
         pullUpLoad: true,
         pullUpLoadThreshold: 0,
         pullUpLoadMoreTxt: 'Load more',
-        pullUpLoadNoMoreTxt: 'No more data',
+        pullUpLoadNoMoreTxt: 'No more data'
       }
     },
     computed: {
-      options() {
+      options () {
         return {
           pullDownRefresh: this.pullDownRefreshObj,
-          pullUpLoad: this.pullUpLoadObj,
+          pullUpLoad: this.pullUpLoadObj
           // scrollbar: true
         }
       },
-      pullDownRefreshObj() {
+      pullDownRefreshObj () {
         return this.pullDownRefresh ? {
           threshold: parseInt(this.pullDownRefreshThreshold),
           // Do not need to set stop value, but you can if you want
@@ -63,7 +64,7 @@
           txt: this.pullDownRefreshTxt
         } : false
       },
-      pullUpLoadObj() {
+      pullUpLoadObj () {
         return this.pullUpLoad ? {
           threshold: parseInt(this.pullUpLoadThreshold),
           txt: {
@@ -78,18 +79,18 @@
         'homepageDateStr'
       ])
     },
-    created() {
+    created () {
       this._getNews()
       this.initDate()
       this.handleNewsList()
     },
-    mounted() {
+    mounted () {
       setTimeout(() => {
         this._getSlider()
       }, 20)
     },
     methods: {
-      _getSlider() {
+      _getSlider () {
         api.getSlider().then((res) => {
           // console.log(res.data.top_stories)
           this.sliders = this.initImage(res.data.top_stories)
@@ -98,7 +99,7 @@
           console.log(error)
         })
       },
-      _getNews() {
+      _getNews () {
         api.getNews().then((res) => {
           let stories = this.initImage(res.data.stories)
           console.log(stories)
@@ -112,7 +113,7 @@
           console.log(error)
         })
       },
-      _getMoreNews() {
+      _getMoreNews () {
         console.log(this.homepageDateStr)
         api.getMoreNews(this.homepageDateStr).then(res => {
           let stories = this.initImage(res.data.stories)
@@ -127,14 +128,14 @@
         })
         this.decreaseDateStr()
       },
-      decreaseDateStr() {
+      decreaseDateStr () {
         let homeDate = this.homepageDate
         // console.log(homeDate)
         homeDate.setDate(homeDate.getDate() - 1)
         this.addDate(new Date(homeDate.getTime()))
         this.formatDate()
       },
-      formatDate() {
+      formatDate () {
         let nowDate = new Date(this.homepageDate.getTime())
         let year = nowDate.getFullYear() + ''
         let month = nowDate.getMonth() + 1
@@ -144,30 +145,30 @@
         this.dateStr = year + month + date
         this.addDateStr(this.dateStr)
       },
-      initDate() {
+      initDate () {
         this.date = new Date()
         this.addDate(new Date(this.date.getTime()))
         console.log(new Date(this.date.getTime()))
         this.formatDate()
       },
-      initImage(data) {
+      initImage (data) {
         data.map((item) => {
           item.image = changeImageUrl(item.image)
           // item.images = changeImageUrl(item.images)
         })
         return data
       },
-      handleNewsList() {
+      handleNewsList () {
         // const paddingBottom = this.sliders.length > 0 ? '76px' : ''
         // this.$refs.newsList.style.paddingBottom = paddingBottom
         // this.$refs.scroll.refresh()
       },
-      goNews(story) {
+      goNews (story) {
         this.$router.push({
           path: `/news-detail/${story.id}`
         })
       },
-      onPullingDown() {
+      onPullingDown () {
         let stories = this.stories
         stories = []
         console.log(this.stories)
@@ -178,9 +179,10 @@
         })
         console.log('下拉')
       },
-      onPullingUp() {
+      onPullingUp () {
         this._getMoreNews()
         console.log('上拉')
+        console.log(this.homepageDateStr)
       },
       ...mapActions([
         'addNews',

@@ -27,7 +27,7 @@
       }
     },
     methods: {
-      selectItem(item) {
+      selectItem (item) {
         this.$emit('select', item)
       }
     }
