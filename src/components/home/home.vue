@@ -10,7 +10,7 @@
         <div v-if="sliders.length" class="slide-container">
           <cube-slide ref="slide" :data="sliders">
             <cube-slide-item v-for="(item, index) in sliders" :key="index">
-              <a :href="item.url">
+              <a href="javascript:void (0);" @click="goNews(item)">
                 <img v-lazy="item.image">
                 <b class="mark"></b>
                 <span>{{item.title}}</span>
@@ -94,7 +94,7 @@
         api.getSlider().then((res) => {
           // console.log(res.data.top_stories)
           this.sliders = this.initImage(res.data.top_stories)
-          console.log(this.sliders)
+          // console.log(this.sliders)
         }).catch((error) => {
           console.log(error)
         })
@@ -102,19 +102,19 @@
       _getNews () {
         api.getNews().then((res) => {
           let stories = this.initImage(res.data.stories)
-          console.log(stories)
+          // console.log(stories)
           let ids = stories.map(story => story.id)
           this.addNews({
             stories: stories,
             ids: ids
           })
-          console.log(this.stories)
+          // console.log(this.stories)
         }).catch((error) => {
           console.log(error)
         })
       },
       _getMoreNews () {
-        console.log(this.homepageDateStr)
+        // console.log(this.homepageDateStr)
         api.getMoreNews(this.homepageDateStr).then(res => {
           let stories = this.initImage(res.data.stories)
           console.log(stories)
@@ -154,7 +154,6 @@
       initImage (data) {
         data.map((item) => {
           item.image = changeImageUrl(item.image)
-          // item.images = changeImageUrl(item.images)
         })
         return data
       },
@@ -169,7 +168,8 @@
         })
       },
       onPullingDown () {
-        this.$router.go(0)
+        // this.$router.go(0)
+        console.log(this.stories)
         console.log('下拉')
       },
       onPullingUp () {
