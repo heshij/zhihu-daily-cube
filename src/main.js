@@ -9,9 +9,16 @@ import store from './store'
 import 'amfe-flexible'
 import './common/stylus/index.styl'
 import fastClick from 'fastclick'
+import VueLazyLoad from 'vue-lazyload'
+
+Vue.use(VueLazyLoad, {
+  loading: require('./common/images/default.gif')
+})
 
 Vue.config.productionTip = false
+
 Vue.use(VueResource)
+
 Vue.http.interceptors.push(function(request, next) { // 拦截器
   // 跨域携带cookie
   request.credentials = true

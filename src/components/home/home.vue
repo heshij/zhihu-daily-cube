@@ -11,7 +11,7 @@
           <cube-slide ref="slide" :data="sliders">
             <cube-slide-item v-for="(item, index) in sliders" :key="index">
               <a :href="item.url">
-                <img :src="item.image">
+                <img v-lazy="item.image">
                 <b class="mark"></b>
                 <span>{{item.title}}</span>
               </a>
@@ -169,14 +169,7 @@
         })
       },
       onPullingDown () {
-        let stories = this.stories
-        stories = []
-        console.log(this.stories)
-        let ids = stories.map(story => story.id)
-        this.addNews({
-          stories: stories,
-          ids: ids
-        })
+        this.$router.go(0)
         console.log('下拉')
       },
       onPullingUp () {
@@ -206,7 +199,14 @@
       height 620px
       // fix 子元素超出边框圆角部分不隐藏的问题
       transform: rotate(0deg);
-
+  .cube-pulldown-wrapper .after-trigger .cube-pulldown-loaded
+    span
+      font-size $font-size-small
+      color $color-title-s
+  .cube-pullup-wrapper .before-trigger
+    span
+      font-size $font-size-small
+      color $color-title-s
   .slide-container
     height 260px
     transform translateZ(0px)

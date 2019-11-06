@@ -1,7 +1,7 @@
 <template>
   <div class="news-wrapper">
     <div class="top-img">
-      <img :src="attachImageUrl(newsDetail.image)" alt="">
+      <img v-lazy="attachImageUrl(newsDetail.image)" alt="">
       <span class="news_title">{{newsDetail.title}}</span>
       <b></b>
     </div>
@@ -15,8 +15,7 @@
   export default {
     data () {
       return {
-        newsDetail: {},
-        title: ''
+        newsDetail: {}
       }
     },
     created () {
@@ -28,6 +27,8 @@
           res.data.body = this.attachBodyContent(res.data.body)
           this.newsDetail = res.data
           console.log(this.newsDetail)
+        }).catch(error => {
+          console.log(error)
         })
       },
       // 修改图片链接
@@ -42,12 +43,10 @@
       }
     },
     watch: {
-      '$route' (to, from) {
-        // console.log(to)
-        // console.log('____________________________________')
-        // console.log(from)
-        // console.log('____________')
-        // this._getNewsContent()
+      '$route.path'(newVal) {
+        if (newVal === `/news-detail/${this.$route.params.id}`) {
+          this._getNewsContent()
+        }
       }
     }
   }
