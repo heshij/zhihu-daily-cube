@@ -18,7 +18,7 @@
             </cube-slide-item>
           </cube-slide>
         </div>
-        <news-list ref="newsList" :stories="stories" @select="goNews" :news-date="newsDate"></news-list>
+        <news-list ref="newsList" :stories="stories" @select="goNews"></news-list>
       </cube-scroll>
     </div>
   </div>
@@ -38,7 +38,7 @@
         sliders: [],
         date: Date,
         dateStr: '',
-        newsDate: '今日热闻',
+        today: '今日热闻',
         pullDownRefresh: true,
         pullDownRefreshThreshold: 60,
         pullDownRefreshTxt: 'Refresh success',
@@ -101,6 +101,9 @@
       },
       _getNews () {
         api.getNews().then((res) => {
+          if (res.data.date === this.homepageDateStr) {
+            res.data.date = this.today
+          }
           let stories = res.data
           console.log(stories)
           let ids = stories.stories.map(story => story.id)
@@ -116,6 +119,7 @@
       _getMoreNews () {
         // console.log(this.homepageDateStr)
         api.getMoreNews(this.homepageDateStr).then(res => {
+          res.data.date = this.changeDateSmall(res.data.date) + this.getDateWeek(this.changeDate(res.data.date))
           let stories = res.data
           console.log(stories)
           let ids = stories.stories.map(story => story.id)
@@ -157,6 +161,18 @@
         })
         return data
       },
+      changeDate (date) {
+        return date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8)
+      },
+      changeDateSmall (date) {
+        return date.slice(4, 6) + '月' + date.slice(6, 8) + '日' + ' '
+      },
+      getDateWeek (date) {
+        let day = new Date(Date.parse(date))
+        let today = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+        let week = today[day.getDay()]
+        return week
+      },
       handleNewsList () {
         // const paddingBottom = this.sliders.length > 0 ? '76px' : ''
         // this.$refs.newsList.style.paddingBottom = paddingBottom
@@ -169,13 +185,11 @@
       },
       onPullingDown () {
         this.$router.go(0)
-        console.log(this.stories)
         console.log('下拉')
       },
       onPullingUp () {
         this._getMoreNews()
         console.log('上拉')
-        console.log(this.homepageDateStr)
       },
       ...mapActions([
         'addNews',
@@ -199,14 +213,17 @@
       height 620px
       // fix 子元素超出边框圆角部分不隐藏的问题
       transform: rotate(0deg);
+
   .cube-pulldown-wrapper .after-trigger .cube-pulldown-loaded
     span
       font-size $font-size-small
       color $color-title-s
+
   .cube-pullup-wrapper .before-trigger
     span
       font-size $font-size-small
       color $color-title-s
+
   .slide-container
     height 260px
     transform translateZ(0px)

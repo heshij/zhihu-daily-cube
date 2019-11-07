@@ -1,7 +1,7 @@
 <template>
   <div class="list" v-show="stories.length">
     <div class="list-wrapper" v-for="story in stories" :key="story.index">
-      <div class="date">{{changeDate(story.date)}}</div>
+      <div class="date">{{story.date}}</div>
       <ul>
         <li class="new border-1px" v-for="item in story.stories" :key="item.id" @click="selectItem(item)">
           <span class="title">{{item.title}}</span>
@@ -21,10 +21,6 @@
       stories: {
         type: Array,
         default: []
-      },
-      newsDate: {
-        type: String,
-        default: '今日热闻'
       }
     },
     methods: {
@@ -36,9 +32,6 @@
         if (srcUrl !== undefined) {
           return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
         }
-      },
-      changeDate (date) {
-        return date.slice(0, 4) + '年' + date.slice(4, 6) + '月' + date.slice(6, 8) + '日'
       }
     }
   }

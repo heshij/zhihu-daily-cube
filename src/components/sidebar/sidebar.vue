@@ -63,7 +63,7 @@
     position fixed
     top 0
     left 0
-    z-index 99
+    z-index 100
     width 300px
     height 100%
     background-color $color-background
@@ -111,6 +111,8 @@
               color $color-white
             span
               margin-right 16px
+            b
+              font-weight normal
     .list
       background-color $color-theme-d
       li
@@ -127,9 +129,9 @@
     left 0
     width 100%
     height 100%
-    z-index 30
     background $color-background-back-s
     opacity 1
+    z-index 99
     &.fade-enter-active, &.fade-leave-active
       transitio all .5s
     &.fade-enter, &.fade-leave-active
