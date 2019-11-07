@@ -1,14 +1,16 @@
 <template>
   <div class="list" v-show="stories.length">
-    <div class="date">{{newsDate}}</div>
-    <ul>
-      <li class="new border-1px" v-for="story in stories" :key="story.id" @click="selectItem(story)">
-        <span class="title">{{story.title}}</span>
-        <div class="img-wrap">
-          <img v-lazy="attachImageUrl(story.images[0])" alt="" class="_img">
-        </div>
-      </li>
-    </ul>
+    <div class="list-wrapper" v-for="story in stories" :key="story.index">
+      <div class="date">{{changeDate(story.date)}}</div>
+      <ul>
+        <li class="new border-1px" v-for="item in story.stories" :key="item.id" @click="selectItem(item)">
+          <span class="title">{{item.title}}</span>
+          <div class="img-wrap">
+            <img v-lazy="attachImageUrl(item.images[0])" alt="" class="_img">
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -30,10 +32,13 @@
         this.$emit('select', item)
       },
       // 修改图片链接
-      attachImageUrl(srcUrl) {
+      attachImageUrl (srcUrl) {
         if (srcUrl !== undefined) {
           return srcUrl.replace(/http\w{0,1}:\/\/p/g, 'https://images.weserv.nl/?url=p')
         }
+      },
+      changeDate (date) {
+        return date.slice(0, 4) + '年' + date.slice(4, 6) + '月' + date.slice(6, 8) + '日'
       }
     }
   }

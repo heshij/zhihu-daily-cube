@@ -23,6 +23,7 @@
     },
     methods: {
       _getNewsContent () {
+        console.log(this.$route.params.id)
         api.getNewsContent(this.$route.params.id).then(res => {
           res.data.body = this.attachBodyContent(res.data.body)
           this.newsDetail = res.data

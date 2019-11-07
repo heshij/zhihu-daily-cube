@@ -101,9 +101,9 @@
       },
       _getNews () {
         api.getNews().then((res) => {
-          let stories = this.initImage(res.data.stories)
-          // console.log(stories)
-          let ids = stories.map(story => story.id)
+          let stories = res.data
+          console.log(stories)
+          let ids = stories.stories.map(story => story.id)
           this.addNews({
             stories: stories,
             ids: ids
@@ -116,9 +116,9 @@
       _getMoreNews () {
         // console.log(this.homepageDateStr)
         api.getMoreNews(this.homepageDateStr).then(res => {
-          let stories = this.initImage(res.data.stories)
+          let stories = res.data
           console.log(stories)
-          let ids = stories.map(story => story.id)
+          let ids = stories.stories.map(story => story.id)
           this.addNews({
             stories: stories,
             ids: ids
@@ -168,7 +168,7 @@
         })
       },
       onPullingDown () {
-        // this.$router.go(0)
+        this.$router.go(0)
         console.log(this.stories)
         console.log('下拉')
       },
