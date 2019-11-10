@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <m-header @showSidebar="show"></m-header>
-    <sidebar ref="sidebar"></sidebar>
+    <!--<sidebar ref="sidebar"></sidebar>-->
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
@@ -12,14 +12,19 @@
 </style>
 <script>
   import MHeader from './components/m-header/m-header.vue'
-  import Sidebar from './components/sidebar/sidebar'
+  // import Sidebar from './components/sidebar/sidebar'
 
   export default {
     methods: {
       show () {
-        this.$refs.sidebar.open()
+        this.Sidebar = this.Sidebar || this.$createSidebar({
+        })
+        this.Sidebar.open()
       }
     },
-    components: { Sidebar, MHeader }
+    components: {
+      // Sidebar,
+      MHeader
+    }
   }
 </script>

@@ -11,6 +11,7 @@ import 'amfe-flexible'
 import './common/stylus/index.styl'
 import fastClick from 'fastclick'
 import VueLazyLoad from 'vue-lazyload'
+import './register'
 
 Vue.use(VueLazyLoad, {
   loading: require('./common/images/default.gif')
