@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <m-header @showSidebar="show"></m-header>
     <!--<sidebar ref="sidebar"></sidebar>-->
     <keep-alive>
       <router-view></router-view>
@@ -11,20 +10,12 @@
 
 </style>
 <script>
-  import MHeader from './components/m-header/m-header.vue'
   // import Sidebar from './components/sidebar/sidebar'
-
   export default {
     methods: {
-      show () {
-        this.Sidebar = this.Sidebar || this.$createSidebar({
-        })
-        this.Sidebar.open()
-      }
     },
     components: {
       // Sidebar,
-      MHeader
     }
   }
 </script>

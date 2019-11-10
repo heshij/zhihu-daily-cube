@@ -37,5 +37,10 @@ export default {
     return axios('api/news/before/' + homeDateStr).then(res => {
       return Promise.resolve(res)
     })
+  },
+  getNewsExtraData (id) {
+    return axios('api/story-extra/' + id).then(res => {
+      return Promise.resolve(res)
+    })
   }
 }

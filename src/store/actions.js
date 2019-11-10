@@ -20,3 +20,4 @@ export function addDateStr ({ commit }, dateStr) {
   commit(types.ADD_DATE_STR, dateStr)
   commit(types.ADD_HOMEPAGE_DATE_STR, dateStr)
 }
+

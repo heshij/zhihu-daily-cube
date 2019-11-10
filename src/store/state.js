@@ -7,5 +7,7 @@ export default {
   homepageDate: 0, // 首页当前日期
   homepageDateStr: 0, // 首页日期字符串
   dateStr: 0, // 详情页日期字符串
-  date: 0 // 详情页日期,
+  date: 0, // 详情页日期,
+  popularity: 0, // 当前新闻点赞数
+  comments: 0 // 当前新闻评论总数
 }

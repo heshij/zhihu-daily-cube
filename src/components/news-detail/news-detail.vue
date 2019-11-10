@@ -1,5 +1,6 @@
 <template>
   <div class="news-wrapper">
+    <news-menu></news-menu>
     <div class="top-img">
       <img v-lazy="attachImageUrl(newsDetail.image)" alt="">
       <span class="news_title">{{newsDetail.title}}</span>
@@ -11,8 +12,10 @@
 
 <script>
   import api from '../../api/index'
+  import NewsMenu from '../../base/news-menu/news-menu'
 
   export default {
+    components: { NewsMenu },
     data () {
       return {
         newsDetail: {}

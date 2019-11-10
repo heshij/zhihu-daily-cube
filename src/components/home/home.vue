@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <m-header @showSidebar="show"></m-header>
     <div class="scroll-wrapper">
       <cube-scroll
         ref="scroll"
@@ -27,12 +28,13 @@
 <script>
   import api from '../../api/index'
   import { changeImageUrl } from '../../common/js/util'
+  import MHeader from '../../components/m-header/m-header.vue'
   import NewsList from '../../base/news-list/new-list'
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'home',
-    components: { NewsList },
+    components: { MHeader, NewsList },
     data () {
       return {
         sliders: [],
@@ -90,6 +92,10 @@
       }, 20)
     },
     methods: {
+      show () {
+        this.Sidebar = this.Sidebar || this.$createSidebar({})
+        this.Sidebar.open()
+      },
       _getSlider () {
         api.getSlider().then((res) => {
           // console.log(res.data.top_stories)

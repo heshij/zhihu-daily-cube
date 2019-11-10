@@ -32,5 +32,9 @@ export default {
   // 增加日期字符串
   [types.ADD_DATE_STR] (state, dateStr) {
     state.dateStr = dateStr
+  },
+  // 设置点赞数
+  [types.SET_POPULARITY] (state, popularity) {
+    state.popularity = popularity
   }
 }
