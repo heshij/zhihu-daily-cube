@@ -9,5 +9,7 @@ export default {
   dateStr: 0, // 详情页日期字符串
   date: 0, // 详情页日期,
   popularity: 0, // 当前新闻点赞数
-  comments: 0 // 当前新闻评论总数
+  isCollect: false, // 当前收藏状态
+  isCollectIds: [], // 收藏新闻id数组
+  isCollectNews: [] // 收藏新闻数组
 }

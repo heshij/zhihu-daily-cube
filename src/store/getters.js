@@ -8,4 +8,8 @@ export const homepageDateStr = state => state.homepageDateStr
 
 export const popularity = state => state.popularity
 
-export const comments = state => state.comments
+export const isCollect = state => state.isCollect
+
+export const isCollectIds = state => state.isCollectIds
+
+export const isCollectNews = state => state.isCollectNews

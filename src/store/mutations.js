@@ -36,5 +36,35 @@ export default {
   // 设置点赞数
   [types.SET_POPULARITY] (state, popularity) {
     state.popularity = popularity
+  },
+  // 收藏新闻
+  [types.SET_COLLECT_NEWS] (state) {
+    let index = state.isCollectIds.indexOf(state.id)
+    console.log(state.id)
+    if (index < 0) {
+      state.isCollect = true
+      state.isCollectIds.push(state.id)
+      state.allStories.forEach((story) => {
+        if (story.id === state.id) {
+          state.isCollectNews.push(story)
+        }
+      })
+    } else {
+      state.isCollect = false
+      state.isCollectIds.splice(index, 1)
+      state.isCollectNews.splice(index, 1)
+    }
+    console.log(state.isCollectIds)
+    console.log(state.isCollectNews)
+    console.log(state.stories)
+  },
+  // 判断当前收藏状态
+  [types.SET_COLLECT_STATE] (state) {
+    if (state.isCollectIds.indexOf(state.id) < 0) {
+      state.isCollect = false
+    } else {
+      state.isCollect = true
+    }
+    console.log(state.stories)
   }
 }

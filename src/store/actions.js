@@ -21,3 +21,6 @@ export function addDateStr ({ commit }, dateStr) {
   commit(types.ADD_HOMEPAGE_DATE_STR, dateStr)
 }
 
+export function addCollect ({ commit }) {
+  commit(types.SET_COLLECT_NEWS)
+}

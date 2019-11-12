@@ -9,7 +9,7 @@
           <i class="icon-share"></i>
         </li>
         <li>
-          <i class="icon-collect"></i>
+          <i :class="isCollectClass" @click="setCollectNews"></i>
         </li>
         <li>
           <i class="icon-comment"></i>
@@ -34,16 +34,18 @@
       return {
         // timer_: function () {
         // },
-        isPopularity: false,
         ...mapGetters([
           'popularity',
-          'comments'
-        ])
+          'isCollectIds'
+        ]),
+        isPopularity: false,
+        comments: 0
       }
     },
     created () {
       this._getNewsExtraData()
       // this.timer()
+      this.setCollectState()
     },
     methods: {
       _getNewsExtraData () {
@@ -75,15 +77,29 @@
         this.$router.go(-1)
       },
       ...mapMutations({
-        setPopularity: 'SET_POPULARITY'
+        setPopularity: 'SET_POPULARITY',
+        setCollectNews: 'SET_COLLECT_NEWS',
+        setCollectState: 'SET_COLLECT_STATE'
       })
     },
     computed: {
+      ...mapGetters([
+        'isCollect',
+        'isCollectNews'
+      ]),
       isPopularityClass () {
         if (this.isPopularity) {
           return 'icon-like isOk'
         } else {
           return 'icon-like isNo'
+        }
+      },
+      isCollectClass () {
+        // console.log(this.isCollect)
+        if (this.isCollect) {
+          return 'icon-collect'
+        } else {
+          return 'icon-nocollect'
         }
       }
     },
@@ -137,7 +153,8 @@
 
         i
           font-size $font-size-large
-
+        .icon-collect
+          color $color-star
         .isNo
           color $color-white
 
