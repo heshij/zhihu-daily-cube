@@ -20,6 +20,10 @@ export function addDateStr ({ commit }, dateStr) {
   commit(types.ADD_DATE_STR, dateStr)
   commit(types.ADD_HOMEPAGE_DATE_STR, dateStr)
 }
+// 修改当前新闻详情页面id
+export function changeCurrentNewsId({ commit }, id) {
+  commit(types.CHANGE_CURRENT_NEWS_ID, id)
+}
 
 export function addCollect ({ commit }) {
   commit(types.SET_COLLECT_NEWS)

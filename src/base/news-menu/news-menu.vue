@@ -9,7 +9,7 @@
           <i class="icon-share"></i>
         </li>
         <li>
-          <i :class="isCollectClass" @click="setCollectNews"></i>
+          <i :class="isCollectClass" @click="addCollect"></i>
         </li>
         <li>
           <i class="icon-comment"></i>
@@ -26,7 +26,7 @@
 
 <script>
   import api from '../../api/index'
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapGetters, mapMutations, mapActions } from 'vuex'
 
   export default {
     name: 'news-menu',
@@ -76,9 +76,11 @@
       back () {
         this.$router.go(-1)
       },
+      ...mapActions([
+        'addCollect'
+      ]),
       ...mapMutations({
         setPopularity: 'SET_POPULARITY',
-        setCollectNews: 'SET_COLLECT_NEWS',
         setCollectState: 'SET_COLLECT_STATE'
       })
     },
@@ -153,8 +155,10 @@
 
         i
           font-size $font-size-large
+
         .icon-collect
           color $color-star
+
         .isNo
           color $color-white
 

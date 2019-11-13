@@ -13,6 +13,12 @@ export default {
   [types.ADD_ALL_NEWS] (state, stories) {
     state.allStories = state.allStories.concat(stories)
   },
+  // 修改当前新闻详情页面id
+  [types.CHANGE_CURRENT_NEWS_ID] (state, id) {
+    state.id = id
+    let index = state.ids.indexOf(id)
+    state.nextId = state.ids[++index]
+  },
   // 添加更多的id数组
   [types.ADD_MORE_IDS] (state, ids) {
     state.ids = state.ids.concat(ids)
@@ -40,13 +46,13 @@ export default {
   // 收藏新闻
   [types.SET_COLLECT_NEWS] (state) {
     let index = state.isCollectIds.indexOf(state.id)
-    console.log(state.id)
+    console.log(index)
     if (index < 0) {
       state.isCollect = true
       state.isCollectIds.push(state.id)
-      state.allStories.forEach((story) => {
-        if (story.id === state.id) {
-          state.isCollectNews.push(story)
+      state.stories.map((item) => {
+        if (item.id === state.id) {
+          state.isCollectNews.push(item)
         }
       })
     } else {

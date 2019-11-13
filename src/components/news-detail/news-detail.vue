@@ -13,7 +13,7 @@
 <script>
   import api from '../../api/index'
   import NewsMenu from '../../base/news-menu/news-menu'
-
+  import { mapGetters, mapActions } from 'vuex'
   export default {
     components: { NewsMenu },
     data () {
@@ -24,12 +24,18 @@
     created () {
       this._getNewsContent()
     },
+    computed: {
+      ...mapGetters([
+        'id'
+      ])
+    },
     methods: {
       _getNewsContent () {
         // console.log(this.$route.params.id)
         api.getNewsContent(this.$route.params.id).then(res => {
           res.data.body = this.attachBodyContent(res.data.body)
           this.newsDetail = res.data
+          this.changeCurrentNewsId(this.$route.params.id)
           // console.log(this.newsDetail)
         }).catch(error => {
           console.log(error)
@@ -44,7 +50,10 @@
       // 修改返回数据中的body中的图片链接
       attachBodyContent (body) {
         return body.replace(/src="http\w{0,1}:\/\//g, 'src="https://images.weserv.nl/?url=')
-      }
+      },
+      ...mapActions([
+        'changeCurrentNewsId'
+      ])
     },
     watch: {
       '$route.path'(newVal) {

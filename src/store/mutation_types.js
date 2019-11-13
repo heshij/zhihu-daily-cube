@@ -1,6 +1,6 @@
 export const ADD_NEWS = 'ADD_NEWS'
 export const ADD_IDS = 'ADD_IDS'
-export const ADD_NEW_ID = 'ADD_NEWID'
+export const CHANGE_CURRENT_NEWS_ID = 'CHANGE_CURRENT_NEWS_ID'
 export const ADD_ALL_NEWS = 'ADD_ALL_NEWS'
 export const ADD_DATE = 'ADD_DATE'
 export const ADD_DATE_STR = 'ADD_DATE_STR'
