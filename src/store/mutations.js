@@ -50,10 +50,20 @@ export default {
     if (index < 0) {
       state.isCollect = true
       state.isCollectIds.push(state.id)
-      state.stories.map((item) => {
-        if (item.id === state.id) {
-          state.isCollectNews.push(item)
-        }
+      // state.stories.map((item) => {
+      //   if (item.id === state.id) {
+      //     state.isCollectNews.push(item)
+      //   }
+      // })
+      state.stories.forEach((item, index) => {
+        // console.log(item.stories)
+        item.stories.map((items) => {
+            console.log(state.id)
+          if (items.id === state.id) {
+            state.isCollectNews.push(items)
+            console.log(state.isCollectNews)
+          }
+        })
       })
     } else {
       state.isCollect = false
