@@ -11,6 +11,7 @@ export default {
   date: 0, // 详情页日期,
   popularity: 0, // 当前新闻点赞数
   isCollect: false, // 当前收藏状态
+  isPopularity: false, // 是否点赞
   isCollectIds: [], // 收藏新闻id数组
   isCollectNews: [] // 收藏新闻数组
 }

@@ -33,3 +33,11 @@ export function addCollect ({ commit }) {
 export function setCollectState ({ commit }) {
   commit(types.SET_COLLECT_STATE)
 }
+
+export function setPopularity ({ commit }) {
+  commit(types.SET_POPULARITY)
+}
+
+export function setPopularityState ({ commit }, popularityState) {
+  commit(types.SET_POPULARITY_STATE, popularityState)
+}

@@ -79,5 +79,10 @@ export default {
       state.isCollect = true
     }
     // console.log(state.stories)
+  },
+  // 改变当前点赞状态
+  [types.SET_POPULARITY_STATE] (state, popularityState) {
+    state.isPopularity = popularityState
+    // console.log(state.stories)
   }
 }

@@ -26,7 +26,7 @@
 
 <script>
   import api from '../../api/index'
-  import { mapGetters, mapMutations, mapActions } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     name: 'news-menu',
@@ -36,9 +36,9 @@
         // },
         ...mapGetters([
           'popularity',
-          'isCollectIds'
+          'isCollectIds',
+          'isPopularity'
         ]),
-        isPopularity: false,
         comments: 0
       }
     },
@@ -52,7 +52,7 @@
           // console.log(res.data)
           this.popularity = res.data.popularity
           this.comments = res.data.comments
-          this.setPopularity(this.popularity)
+          this.setPopularity()
           // console.log(this.popularity)
         })
       },
@@ -66,10 +66,10 @@
         this.isPopularity = !this.isPopularity
         if (this.isPopularity) {
           this.popularity++
-          this.setPopularity(this.popularity)
+          this.setPopularityState(this.isPopularity)
         } else {
           this.popularity--
-          this.setPopularity(this.popularity)
+          this.setPopularityState(this.isPopularity)
         }
       },
       back () {
@@ -77,11 +77,10 @@
       },
       ...mapActions([
         'addCollect',
-        'setCollectState'
-      ]),
-      ...mapMutations({
-        setPopularity: 'SET_POPULARITY'
-      })
+        'setCollectState',
+        'setPopularity',
+        'setPopularityState'
+      ])
     },
     computed: {
       ...mapGetters([
@@ -89,11 +88,7 @@
         'isCollectNews'
       ]),
       isPopularityClass () {
-        if (this.isPopularity) {
-          return 'icon-like isOk'
-        } else {
-          return 'icon-like isNo'
-        }
+        return this.isPopularity ? 'icon-like isOk' : 'icon-like isNo'
       },
       isCollectClass () {
         this.setCollectState()
