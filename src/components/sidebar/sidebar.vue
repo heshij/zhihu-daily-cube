@@ -11,9 +11,9 @@
           </div>
           <div class="ctrl">
             <ul>
-              <li>
+              <li @click="hide">
                 <span class="icon-collect"></span>
-                <router-link to="/">我的收藏</router-link>
+                <router-link to="/collect">我的收藏</router-link>
               </li>
               <li>
                 <span class="icon-download"></span>

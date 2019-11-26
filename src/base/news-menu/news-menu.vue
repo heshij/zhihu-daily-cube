@@ -45,7 +45,6 @@
     created () {
       this._getNewsExtraData()
       // this.timer()
-      this.setCollectState()
     },
     methods: {
       _getNewsExtraData () {
@@ -97,7 +96,7 @@
         }
       },
       isCollectClass () {
-        // console.log(this.isCollect)
+        console.log(this.isCollect)
         if (this.isCollect) {
           return 'icon-collect'
         } else {
@@ -112,6 +111,7 @@
       '$route.path' (newVal) {
         if (newVal === `/news-detail/${this.$route.params.id}`) {
           this._getNewsExtraData()
+          this.setCollectState()
         }
       }
     }

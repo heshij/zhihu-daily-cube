@@ -55,8 +55,8 @@ export default {
         // console.log(item.stories)
         allStories.push(item.stories)
       })
-      const flatStories = allStories.flat()
-      console.log(flatStories)
+      let flatStories = allStories.flat()
+      // console.log(flatStories)
       flatStories.map((item) => {
         if (item.id.toString() === state.id) {
           state.isCollectNews.push(item)
@@ -78,6 +78,6 @@ export default {
     } else {
       state.isCollect = true
     }
-    console.log(state.stories)
+    // console.log(state.stories)
   }
 }
