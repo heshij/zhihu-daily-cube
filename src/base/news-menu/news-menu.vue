@@ -76,11 +76,11 @@
         this.$router.go(-1)
       },
       ...mapActions([
-        'addCollect'
+        'addCollect',
+        'setCollectState'
       ]),
       ...mapMutations({
-        setPopularity: 'SET_POPULARITY',
-        setCollectState: 'SET_COLLECT_STATE'
+        setPopularity: 'SET_POPULARITY'
       })
     },
     computed: {
@@ -96,12 +96,8 @@
         }
       },
       isCollectClass () {
-        console.log(this.isCollect)
-        if (this.isCollect) {
-          return 'icon-collect'
-        } else {
-          return 'icon-nocollect'
-        }
+        this.setCollectState()
+        return this.isCollect ? 'icon-collect' : 'icon-nocollect'
       }
     },
     // destroyed() {
@@ -111,7 +107,6 @@
       '$route.path' (newVal) {
         if (newVal === `/news-detail/${this.$route.params.id}`) {
           this._getNewsExtraData()
-          this.setCollectState()
         }
       }
     }
