@@ -46,24 +46,21 @@ export default {
   // 收藏新闻
   [types.SET_COLLECT_NEWS] (state) {
     let index = state.isCollectIds.indexOf(state.id)
-    console.log(index)
+    let allStories = []
+    // console.log(index)
     if (index < 0) {
       state.isCollect = true
       state.isCollectIds.push(state.id)
-      // state.stories.map((item) => {
-      //   if (item.id === state.id) {
-      //     state.isCollectNews.push(item)
-      //   }
-      // })
-      state.stories.forEach((item, index) => {
+      state.stories.forEach((item) => {
         // console.log(item.stories)
-        item.stories.map((items) => {
-            console.log(state.id)
-          if (items.id === state.id) {
-            state.isCollectNews.push(items)
-            console.log(state.isCollectNews)
-          }
-        })
+        allStories.push(item.stories)
+      })
+      const flatStories = allStories.flat()
+      console.log(flatStories)
+      flatStories.map((item) => {
+        if (item.id.toString() === state.id) {
+          state.isCollectNews.push(item)
+        }
       })
     } else {
       state.isCollect = false
