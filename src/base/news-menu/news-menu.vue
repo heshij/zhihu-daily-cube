@@ -9,7 +9,7 @@
           <i class="icon-share"></i>
         </li>
         <li>
-          <i :class="isCollectClass" @click="addCollect"></i>
+          <i :class="isCollectClass" @click="setCollect"></i>
         </li>
         <li>
           <i class="icon-comment"></i>
@@ -55,6 +55,15 @@
           this.setPopularity()
           // console.log(this.popularity)
         })
+      },
+      setCollect () {
+        this.addCollect()
+        const toast = this.$createToast({
+          time: 2000,
+          txt: this.isCollect ? 'Collect Success' : 'Cancel Success',
+          type: 'correct'
+        })
+        toast.show()
       },
       // timer () {
       //   this.timer_ = setInterval(() => {
