@@ -1,7 +1,7 @@
 <template>
   <div class="list" v-show="stories.length">
     <div class="list-wrapper" v-for="story in stories" :key="story.index">
-      <div class="date" v-if="story.date">{{story.date}}</div>
+        <div class="date" v-if="story.date">{{story.date}}</div>
       <ul>
         <li class="new border-1px" v-for="item in story.stories" :key="item.id" @click="selectItem(item)">
           <span class="title">{{item.title}}</span>
@@ -20,7 +20,9 @@
     props: {
       stories: {
         type: Array,
-        default: []
+        default () {
+          return []
+        }
       }
     },
     methods: {
