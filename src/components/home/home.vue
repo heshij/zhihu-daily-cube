@@ -8,16 +8,18 @@
         :options="options"
         @pulling-down="onPullingDown"
         @pulling-up="onPullingUp">
-        <div v-if="sliders.length" class="slide-container">
-          <cube-slide ref="slide" :data="sliders">
-            <cube-slide-item v-for="(item, index) in sliders" :key="index">
-              <a href="javascript:void (0);" @click="goNews(item)">
-                <img v-lazy="item.image">
-                <b class="mark"></b>
-                <span>{{item.title}}</span>
-              </a>
-            </cube-slide-item>
-          </cube-slide>
+        <div class="slide-container" ref="slideContainer">
+          <div v-if="sliders.length">
+            <cube-slide ref="slide" :data="sliders">
+              <cube-slide-item v-for="(item, index) in sliders" :key="index">
+                <a href="javascript:void (0);" @click="goNews(item)">
+                  <img v-lazy="item.image">
+                  <b class="mark"></b>
+                  <span>{{item.title}}</span>
+                </a>
+              </cube-slide-item>
+            </cube-slide>
+          </div>
         </div>
         <news-list ref="newsList" :stories="stories" @select="goNews"></news-list>
       </cube-scroll>
@@ -81,15 +83,16 @@
         'homepageDateStr'
       ])
     },
-    created () {
-      this._getNews()
-      this.initDate()
-      this.handleNewsList()
-    },
     mounted () {
       setTimeout(() => {
         this._getSlider()
       }, 20)
+      console.log(this.$refs.slideContainer.offsetHeight)
+    },
+    created () {
+      this._getNews()
+      this.initDate()
+      this.handleNewsList()
     },
     methods: {
       show () {
