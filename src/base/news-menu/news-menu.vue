@@ -117,6 +117,7 @@
       ...mapGetters([
         'isCollect',
         'isCollectNews',
+        'currentIndex',
         'currentNews',
         'favoriteList'
       ]),
