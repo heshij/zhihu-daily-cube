@@ -1,4 +1,5 @@
 import * as types from './mutation_types'
+import { saveFavorite, deleteFavorite } from '../common/js/cache'
 
 export function addNews ({ commit, state }, { stories, ids }) {
   let nStories = state.stories.slice()
@@ -40,4 +41,12 @@ export function setPopularity ({ commit }) {
 
 export function setPopularityState ({ commit }, popularityState) {
   commit(types.SET_POPULARITY_STATE, popularityState)
+}
+
+export const saveFavoriteList = function ({ commit }, news) {
+  commit(types.SET_FAVORITE_LIST, saveFavorite(news))
+}
+
+export const deleteFavoriteList = function ({ commit }, news) {
+  commit(types.SET_FAVORITE_LIST, deleteFavorite(news))
 }

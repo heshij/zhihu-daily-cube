@@ -13,3 +13,11 @@ export const isCollect = state => state.isCollect
 export const isCollectIds = state => state.isCollectIds
 
 export const isCollectNews = state => state.isCollectNews
+
+export const currentIndex = state => state.currentIndex
+
+export const currentNews = (state) => {
+  return state.stories[state.currentIndex] || {}
+}
+
+export const favoriteList = state => state.favoriteList

@@ -84,5 +84,8 @@ export default {
   [types.SET_POPULARITY_STATE] (state, popularityState) {
     state.isPopularity = popularityState
     // console.log(state.stories)
+  },
+  [types.SET_FAVORITE_LIST](state, list) {
+    state.favoriteList = list
   }
 }

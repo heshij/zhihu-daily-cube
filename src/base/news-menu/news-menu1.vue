@@ -9,7 +9,7 @@
           <i class="icon-share"></i>
         </li>
         <li>
-          <i :class="getFavoriteIcon(currentNews)" @click="toggleFavorite(currentNews)"></i>
+          <i :class="isCollectClass" @click="setCollect"></i>
         </li>
         <li>
           <i class="icon-comment"></i>
@@ -84,41 +84,17 @@
       back () {
         this.$router.go(-1)
       },
-      toggleFavorite (news) {
-        console.log(this.isFavorite(news))
-        if (this.isFavorite(news)) {
-          this.deleteFavoriteList(news)
-        } else {
-          this.saveFavoriteList(news)
-        }
-      },
-      getFavoriteIcon (news) {
-        if (this.isFavorite(news)) {
-          return 'icon-collect'
-        }
-        return 'icon-nocollect'
-      },
-      isFavorite (news) {
-        const index = this.favoriteList.findIndex((item) => {
-          return item.id === news.id
-        })
-        return index > -1
-      },
       ...mapActions([
         'addCollect',
         'setCollectState',
         'setPopularity',
-        'setPopularityState',
-        'saveFavoriteList',
-        'deleteFavoriteList'
+        'setPopularityState'
       ])
     },
     computed: {
       ...mapGetters([
         'isCollect',
-        'isCollectNews',
-        'currentNews',
-        'favoriteList'
+        'isCollectNews'
       ]),
       isPopularityClass () {
         return this.isPopularity ? 'icon-like isOk' : 'icon-like isNo'

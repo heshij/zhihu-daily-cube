@@ -1,3 +1,5 @@
+import { loadFavorite } from '../common/js/cache'
+
 export default {
   stories: [], // 当前新闻数组
   allStories: [], // 全部已加载新闻数组
@@ -13,5 +15,7 @@ export default {
   isCollect: false, // 当前收藏状态
   isPopularity: false, // 是否点赞
   isCollectIds: [], // 收藏新闻id数组
-  isCollectNews: [] // 收藏新闻数组
+  isCollectNews: [], // 收藏新闻数组
+  currentIndex: -1,
+  favoriteList: loadFavorite()
 }
